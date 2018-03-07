@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ajaxChart.aspx.cs" Inherits="ajax_ajaxChart" %>

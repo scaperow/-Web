@@ -1,0 +1,438 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="main.master.cs" Inherits="main" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>铁路试验动态监控平台</title>
+
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+
+    <link href="css/initialize.css" rel="stylesheet" type="text/css" />
+    <link href="css/css.css" rel="stylesheet" />
+
+    <link href="css/ui.jqgrid.css" rel="Stylesheet" />
+    <link href="css/colorbox.css" rel="Stylesheet" />
+    <link href="css/themes/smoothness/jquery-ui-1.10.3.custom.min.css" rel="Stylesheet" />
+
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/jquery-1.10.1.min.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/jquery-ui-1.10.3.custom.min.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/jquery.ui.datepicker-zh-CN.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/grid.locale-cn.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/jquery.jqGrid.min.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/jquery.colorbox-min.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/ajax_loader.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/main.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/ajaxLoaderBasePage.js") %>"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#txt_startDate").datepicker({
+                defaultDate: "-15d",
+                changeMonth: true,
+                numberOfMonths: 3,
+                onClose: function (selectedDate) {
+                    $("#txt_endDate").datepicker("option", "minDate", selectedDate);
+                    $("#hd_startDate").val(selectedDate);
+                }
+            });
+            $("#txt_endDate").datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 3,
+                onClose: function (selectedDate) {
+                    $("#txt_startDate").datepicker("option", "maxDate", selectedDate);
+                    $("#hd_endDate").val(selectedDate);
+                }
+            });
+            InitLeftMenu();
+            $("#sel_companyfilter").change(function () {
+                filterChanged();
+            });
+
+            $("#sel_testroomfilter").change(function () {
+                filterChanged();
+            });
+
+        });
+
+        function filterChanged() {
+            //debugger;
+            $('#hd_leftTreeRefresh').val('1');
+            var value = $("#hd_sel_companyfilter").text();
+            var data = {};
+            data.value = value;
+            $.ajax({
+                url: '<%= ResolveUrl("~/ajax/ajaxTree.aspx?type=select") %>',
+                type: 'post',
+                datatype: 'json',
+                data: data,
+                success: function (msg) {
+                    $('#hd_leftTreeRefresh').val('0');
+                }
+            });
+
+            if (value == '全部单位') {
+                $("#leftMenu input[type='checkbox']").each(function () {
+
+                    this.checked = true;
+
+                });
+            }
+            else if (value == '施工单位') {
+                $("#leftMenu input[type='checkbox']").each(function () {
+                    if ($(this).attr('isjl') == 0) {
+
+                        this.checked = true;
+
+                    }
+                    else {
+                        this.checked = false;
+                    }
+                });
+            }
+            else if (value == '监理单位') {
+                $("#leftMenu input[type='checkbox']").each(function () {
+                    if ($(this).attr('isjl') == 1) {
+
+                        this.checked = true;
+
+                    }
+                    else {
+                        this.checked = false;
+                    }
+                });
+            }
+            LeftMenuChanged();
+        }
+
+        function unCheckedClick() {
+            $("#leftMenu input[type='checkbox']").each(function () {
+                this.checked = !this.checked;
+            });
+            LeftMenuChanged();
+        }
+
+        function InitLeftMenu() {
+            $('#hd_leftTreeRefresh').val('1');
+            $.ajax({
+                url: '<%= ResolveUrl("~/ajax/ajaxTree.aspx?type=init") %>',
+                type: 'post',
+                datatype: 'json',
+                success: function (msg) {
+                    var menuObj = eval(msg);
+                    LoadLeftMenu(menuObj);
+                    $('#hd_leftTreeRefresh').val('0');
+                    setLeftMenuCss();
+                }
+            });
+        }
+
+        function LoadLeftMenu(menuObj) {
+            $("#leftMenu").html('');
+            if(menuObj == undefined || menuObj== ''){return;}
+            for (var i = 0; i < menuObj.length; i++) {
+                var menuItem = menuObj[i];
+                var checkedString = '';
+                if (menuItem.Checked) {
+                    checkedString = 'checked="checked"';
+                }
+                var str = '<a href="#" class="' + menuItem.css + '"><span class="left"><input  type="checkbox" ' + checkedString + ' value="' + menuItem.code +
+                    '" isCenter=' + menuItem.isCenter + ' isJL=' + menuItem.isJL + ' name="' +
+                  menuItem.text.substring(0, 14) + '" /><span class="showhide">' + menuItem.text.substring(0, 14) + '</span></span></a>';
+                var menu = $('<li />');
+                menu.append(str);
+                var ul = $('<ul />');
+                if (menuItem.css == 'selected') {
+                    ul.show();
+                }
+                else {
+                    ul.hide();
+                }
+                for (var j = 0; j < menuItem.children.length; j++) {
+                    var subItem = menuItem.children[j];
+                    checkedString = '';
+                    if (subItem.Checked) {
+                        checkedString = 'checked="checked"';
+                    }
+                    var subStr = '<li><a href="#"><input  type="checkbox" ' + checkedString + ' value="' + subItem.code +
+                       '" isCenter=' + subItem.isCenter + ' isJL=' + subItem.isJL + ' name="' +
+                      subItem.text.substring(0, 12) + '" />' + subItem.text.substring(0, 12) + '</a></li>';
+                    ul.append(subStr);
+                }
+                menu.append(ul);
+                $("#leftMenu").append(menu);
+            }
+            $(".showhide").each(function () {
+                $(this).click(function () {
+                    $(this).parent().parents("li").children("ul").stop().slideToggle("slow");
+                    LeftMenuChanged();
+                });
+            });
+
+            $("ul.left_menu  input").click(function () {
+                var checked = this.checked;
+                if ($(this).val().length == 12) {
+                    $("ul.left_menu  input[value^='" + $(this).val() + "']").each(function () { this.checked = checked; });
+                }
+                else if ($(this).val().length == 16) {
+                    // 判断this的父是否被选中或者取消选中
+                    var baseCode = $(this).val().substr(0, 12);
+                    var isSame = true;
+                    $("ul.left_menu  input[value^='" + baseCode + "']").each(function () {
+                        if ($(this).val().length == 16) {
+                            if (this.checked != checked) {
+                                isSame = false;
+                            }
+                        }
+                    });
+                    if (isSame) {
+                        $("ul.left_menu  input[value^='" + baseCode + "']").each(function () {
+                            if ($(this).val().length == 12) {
+                                this.checked = checked;
+                            }
+                        });
+                    }
+                }
+                LeftMenuChanged();
+            });
+            $("ul.left_menu>li>ul").hover(
+            function () {
+                $(this).parents("li").children("a:first").addClass("hover");
+            },
+            function () {
+                $(this).parents("li").children("a:first").removeClass("hover")
+            });
+        }
+
+        function setLeftMenuCss() {
+            $("#leftMenu > li").each(function () {
+                if ($(this).find('ul').find('input:checked').length > 0) {
+                    $(this).find('input')[0].checked = true;
+                    $(this).find('a:first').addClass("selected");
+                }
+                else {
+                    $(this).find('input')[0].checked = false;
+                    $(this).find('a:first').removeClass("selected");
+                }
+            });
+        }
+
+        function LeftMenuChanged() {
+            setLeftMenuCss();
+            $('#hd_leftTreeRefresh').val('1');
+            var nodes = [];
+            $("#leftMenu > li").each(function () {
+                var node = {};
+                node.Checked = $(this).find('input')[0].checked;
+                node.code = $(this).find('input').val();
+                node.text = $(this).find('input').attr('name');
+                node.isCenter = $(this).find('input').attr('isCenter');
+                node.isJL = $(this).find('input').attr('isJL');
+                node.css = $(this).find('span[class^=showhide]').attr('class');
+                node.children = [];
+                $(this).find('ul').find('li').each(function () {
+                    var node1 = {};
+                    node1.Checked = $(this).find('input')[0].checked;
+                    node1.code = $(this).find('input').val();
+                    node1.text = $(this).find('input').attr('name');
+                    node1.isCenter = $(this).find('input').attr('isCenter');
+                    node1.isJL = $(this).find('input').attr('isJL');
+                    node1.css = '';
+                    node.children.push(node1);
+                });
+                nodes.push(node);
+            });
+
+            $.ajax({
+                url: '<%= ResolveUrl("~/ajax/ajaxTree.aspx?type=checked") %>',
+                type: 'post',
+                datatype: 'json',
+                data: { nodes: JSON.stringify(nodes) },
+                success: function (msg) {
+                    $('#hd_leftTreeRefresh').val('0');
+                }
+            });
+        }
+
+    </script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="header">
+            <div class="logo">
+               <a style="color: #fff; text-decoration: none;" onclick="SwitchLine();"> <asp:Label ID="Label1" runat="server" Text=""></asp:Label>▼
+               </a> 
+            </div>
+            <ul class="topnav">
+                <li>
+                    <a id="A1" runat="server" onserverclick="lb_logout_Click" class="ico_out"></a>
+                </li>
+                <li><a href="#" class="wel">欢迎您：<br />
+                    <%= UserName%></a></li>
+
+            </ul>
+        </div>
+
+
+        <ul class="nav">
+            <li style="width:78px;"><a href="<%= ResolveUrl("~/indexMap.aspx") %>">　首页</a></li>
+            <li><a href="javascript:;">资料情况</a>
+                <ul>
+                    <li><a href="<%= ResolveUrl("~/baseInfo/documentSummary.aspx") %>">资料统计</a></li>
+                    <li><a href="<%= ResolveUrl("~/report/Search.aspx") %>">资料查询</a></li>
+                    <li><a href="<%= ResolveUrl("~/TestRoom/TestRoomList.aspx") %>">试验室情况</a></li>
+                    <li><a href="<%= ResolveUrl("~/baseInfo/userSummary.aspx") %>">人员情况</a></li>
+                    <li><a href="<%= ResolveUrl("~/baseInfo/machineSummary.aspx") %>">设备情况</a></li>
+
+                </ul>
+            </li>
+            <li><a href="javascript:;">分析统计</a>
+                <ul>
+                    <li><a href="<%= ResolveUrl("~/report/failReport.aspx") %>">不合格数据分析</a></li>
+                   
+                    <li><a href="<%= ResolveUrl("~/report/HistoryfailReport.aspx") %>">历史不合格数据分析</a></li>
+                 
+                    <li><a href="<%= ResolveUrl("~/report/failreportsum.aspx") %>">不合格数据统计排名</a></li>
+                    <li><a href="<%= ResolveUrl("~/report/parallelReport.aspx") %>">平行频率分析</a></li>
+                    <li><a href="<%= ResolveUrl("~/report/witnessReport.aspx") %>">见证频率分析</a></li>
+                   <%-- <li><a href="<%= ResolveUrl("~/report/betonReport.aspx") %>">砼强度评定</a></li>--%>
+                </ul>
+            </li>
+             <%if("rolename".SessionStr().ToString().IsEqualsOr("ADMIN")){ %>
+            <li><a href="javascript:;">质量分析</a>
+                <ul>
+                    <li><a href="<%= ResolveUrl("~/Blob/AnalysisofTestData.aspx") %>">试验检测数据分析</a></li> 
+                    <li><a href="<%= ResolveUrl("~/Blob/HNTKY.aspx") %>">混凝土检测数据分析</a></li>
+                    <li><a href="<%= ResolveUrl("~/Blob/m1-1.aspx") %>">原材数据统计分析</a></li> 
+                    <li><a href="<%= ResolveUrl("~/Blob/m5.aspx") %>">采集数据分析</a></li>
+                </ul>
+            </li>
+             <%} %>
+            <%if("rolename".SessionStr().ToString().IsEqualsOr("YZ","ADMIN")){ 
+                  %>
+             <li><a href="javascript:;">信用评价</a>
+                <ul>
+                    <li><a href="<%= ResolveUrl("~/Rating/CreditRating.aspx") %>">铁路建设项目信用评价</a></li>
+                </ul>
+            </li>
+            <%} %>
+            <li><a href="javascript:;">日志查询</a>
+                <ul>
+                    <li><a href="<%= ResolveUrl("~/logInfo/loginLog.aspx") %>">客户端登录日志</a></li>
+                     <li><a href="<%= ResolveUrl("~/logInfo/bsloginlog.aspx") %>">网页版登陆日志</a></li>
+                    <li><a href="<%= ResolveUrl("~/Blob/ModifyStatistics.aspx") %>">关键字段修改统计</a></li>
+                    <li><a href="<%= ResolveUrl("~/logInfo/SMS.aspx") %>">短信查询</a></li>
+                    
+                </ul>
+            </li>
+               <%if("rolename".SessionStr().ToString().IsEqualsOr("ADMIN")){ 
+                  %>
+             <li><a href="javascript:;">周/月报表</a>
+                <ul>
+                    <li><a href="<%= ResolveUrl("~/WorkReport/WorkReport.aspx") %>">工作汇报表</a></li>
+                    <li><a href="<%= ResolveUrl("~/WorkReport/FailReport.aspx") %>">不合格报告</a></li>
+                    <li><a href="<%= ResolveUrl("~/WorkReport/UploadRanking.aspx") %>">上传资料排名</a></li>
+
+                </ul>
+            </li>
+            <%} %>
+            
+
+           <li><a href="<%= ResolveUrl("~/sys/password.aspx") %>">修改密码</a></li>
+            <%if("rolename".SessionStr().ToString().IsEqualsOr("ADMIN")){ 
+                  %>
+            <li><a href='javascript:void(0);'>系统设置</a>
+                <ul>
+                    <li><a href='<%= ResolveUrl("~/sys/SendMSM.aspx") %>'>短信配置</a></li>
+                    <li><a href='<%= ResolveUrl("~/sys/createmachine.aspx")%>'>创建设备</a></li>
+                </ul>
+            </li>
+            <%} %>
+                   
+               
+
+        </ul>
+
+        <div class="navbar" style="background-color: #E76049;">
+            <div class="barcon">
+                <ul class="searchbar clearfix">
+                    <li><i class="ico_search"></i>过滤条件</li>
+                    <li><span class="text">开始时间</span><input type="text" id="txt_startDate" value="<%= StartDate%>" /><span class="ico_dik"></span></li>
+                    <li><span class="text">结束时间</span><input type="text" id="txt_endDate" value="<%= EndDate%>" /><span class="ico_dik"></span></li>
+
+                    <li><span class="text">单位</span>
+                        <span class="select">
+                            <span class="txt" id="hd_sel_companyfilter"><%= Companyfilter%></span>
+                            <select id="sel_companyfilter" name="">
+                                <option>全部单位</option>
+                                <option>施工单位</option>
+                                <option>监理单位</option>
+                            </select>
+                        </span><span class="ico_dow"></span></li>
+                    <li><span class="text">
+                        <input type="checkbox" onclick="unCheckedClick()" />
+                        反选</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="wrap" class="">
+            <div id="jq-content" class="jq_content">
+                <div id="leftblock" class="leftblock">
+                    <ul id="leftMenu" class="left_menu">
+                    </ul>
+                </div>
+                <div class="conter clearfix">
+                    <div id="mainBody" class="conters">
+                        <input type="hidden" id="hd_startDate" value="<%= StartDate%>" />
+                        <input type="hidden" id="hd_endDate" value="<%= EndDate%>" />
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                    <div class="foot_block">
+                        <div>北京金舟神创科技发展有限公司 ©2005-2014</div>
+                    </div>
+                </div>
+
+                <input type="hidden" id="hd_leftTreeRefresh" value="0" />
+            </div>
+
+        </div>
+
+
+             <style type="text/css">
+             .test ul{list-style:none;}   
+             .test li{float:left;} 
+             </style>
+
+        <div style="display: none;">
+            <div id="colorBoxmain" style="height: 83%; width: 100%; text-align: center;" class="test">
+                <ul>
+
+                    <asp:Repeater ID="rp_list" runat="server" OnItemCommand="rp_list_ItemCommand"  >
+                        <ItemTemplate>
+
+                            <li style="  font-size: 16px; padding:5px 10px 5px 10px;">
+                                <asp:LinkButton ID="LBtnChange" runat="server" CommandArgument='<%#Eval("ID") %>' CommandName="change">[<%#Eval("LineName")  %>]</asp:LinkButton>
+                            </li>
+
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </ul>
+
+            </div>
+        </div>
+    </form>
+</body>
+</html>
+<script type="text/javascript">
+    function SwitchLine() {
+        $.colorbox({ href: "#colorBoxmain", width: 500, height: 500, title: function () { return ""; }, close: "", inline: true, scrolling: false });
+
+    }
+</script>

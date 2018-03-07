@@ -1,0 +1,174 @@
+﻿@charset "utf-8";
+
+/* CSS Document */
+html { min-height: 100%; }
+body {/* background: url(../images/bgt.jpg) repeat-y 0 0*/ background-color:#f2f3f3; min-width: 1000px; }
+.header { background-color: #438eb9; height: 54px; position: relative; min-width: 1000px; }
+.header .logo { background: url(../images/ico_03.png) no-repeat -78px -43px; width: 104px; line-height: 26px; padding-left: 96px; float: left; height: 54px; font-size: 16px; color: #FFF; }
+.header .logo strong { color: #333; line-height: 24px; }
+.topnav { position: absolute; right: 0px; top: 0px; height: 54px; }
+.topnav li { height: 54px; float: right; position: relative; }
+.topnav li a { display: block; height: 54px; width: 54px; background: url(../images/ico_03.png) no-repeat; }
+.topnav li a.wel { background-image: none; background-color:#555; padding:0 8px; color: #FFF; font-size: 14px; line-height: 24px; width: auto; text-decoration: none;text-transform:uppercase; border-right:1px solid #fff; }
+.topnav li a.ico_out { background-position: -2px 0; background-color: #e76049 }
+.topnav li a.ico_set { background-position: -4px -52px; width: 60px; }
+.topnav li ul { position: absolute; width: 100px; background-color: #fff; background-image: none; right: 0px; z-index: 999; display: none; }
+.topnav li ul li { height: 30px; float: none; width: 100%; background-image: none; }
+.topnav li ul li a { height: 30px; width: 100%; line-height: 30px; text-indent: 10px; text-decoration: none; color: #666; background-image: none; }
+.topnav li ul li a:hover { background-image: none; color: #FFF; }
+.nav { position: absolute; height: 54px; top: 0px; left: 200px; font-size: 14px;border-left: 1px solid #176b9b; border-right: 1px solid #7eacc6; }
+.nav li { float: left; line-height: 54px; border-left: 1px solid #7eacc6; border-right: 1px solid #176b9b; position: relative; }
+.nav li a { padding: 0 10px; color: #FFF; text-decoration: none; display: block; height: 54px; }
+.nav li a:hover, .nav li a.hover, .nav li a.selected { background-color: #306f93; color: #fff; }
+.nav li ul { position: absolute; display: block; background-color: #347499; left: -1px; width: 150px; z-index: 9999; display: none; }
+.nav li ul li { clear: both; width: 100%; float: left; height: 30px; line-height: 30px; border-left: 0 none; border-right: none 0px; border-top: 1px solid #438eb9; border-bottom: 1px solid #214d66; }
+.nav li ul li a { display: block; height: 30px; line-height: 30px; font-size: 12px; padding: 0 10px; }
+.nav li ul li a:hover, .nav li ul li a.selected { background-color:#62a8d1;}
+#wrap { width: 100%; height: auto; min-height: 100%; clear: both; min-width: 1000px; }
+.jq_content { height: 100%; clear: both; margin-left: 200px; min-height: 100%; }
+.leftblock { width: 200px; float: left; margin-left: -200px; background-color: #a1d5f4; position: relative; overflow-x: hidden; overflow-y: auto; }
+.conter { float: left; width: 100%; overflow: hidden; height: 100%; background-color: #f2f3f3; overflow-y: auto; }
+.conter .conters { }
+.foot_block { height: 30px; background-color: #fff; color: #333; text-align: center; width: 100%; /*position: absolute; bottom: 0px; */left: 200px; padding-top:1px;}
+.foot_block div{ background-color: #f6f6f6; line-height: 28px;border-top:#e4e4e4 solid 1px;}
+.left_menu { display: block; border-bottom: 1px solid #e5e5e5; border-top: 1px solid #fff; background-color:#f2f2f2; }
+.left_menu li { border-top: 1px solid #fff; border-bottom: 1px solid #e5e5e5; }
+.left_menu li ul { background-color: #fff; display: none; }
+.left_menu li ul li { border: none 0px; line-height: 30px; }
+.left_menu li a { display: block; height: 36px; line-height: 36px; color: #2b7dbc; font-size: 12px; text-decoration: none; padding-left: 10px; }
+.left_menu li ul li a { color: #616161; padding-left: 20px; line-height: 30px; height: 30px; }
+.left_menu li input { vertical-align: middle; margin-top: 1px; margin-right:3px; }
+.left_menu li a:hover, .left_menu li a.hover, .left_menu li a.selected { background-color: #a1d5f4; color: #616161; }
+.left_menu li ul li a:hover { background:none; color: #2b7dbc; }
+.left_menu li a span.showhide {  }
+.left_menu li a span.hides, .left_menu li a span.shows { background: url(../images/ico_03.png) no-repeat -97px -6px; margin-top: 13px; margin-right: 10px; }
+.left_menu li a span.hides { background-position: -134px -6px; }
+.left_menu li a:hover span.hides { background-position: -119px -6px; }
+.left_menu li a:hover span.shows { background-position: -82px -6px; }
+.navbar { background-color: #FFF; padding-bottom: 1px; }
+.navbar .barcon { border-bottom: 1px solid #e4e4e4; }
+.searchbar { display: block; }
+.searchbar li { float: left; padding: 10px; line-height: 26px; font-size: 14px; }
+.searchbar i { float: left; height: 26px; width: 26px; background: url(../images/ico_03.png) no-repeat -63px -121px; margin-right: 10px; }
+.searchbar li span { float: left; }
+.searchbar li input,.searchbar li select { float: left; height: 22px; border: 1px solid #c4c8c9; padding: 1px 5px; }
+.searchbar li input:focus { border-color: #F59942; box-shadow: 0 0 0 2px rgba(245, 153, 66, 0.3); transition-duration: 0.1s; color: #333; }
+.searchbar li span.text { background-color: #c4c8c9; color: #212629; padding: 0 10px; }
+.searchbar li input.search_btn { height: 26px; border: none 0; background-color: #2e3740; color: #FFF; font-size: 16px; line-height: 22px; cursor:pointer; }
+
+
+.searchbar li span.select{ background-color:#FFF;  float: left; overflow:hidden;  height: 24px; border: 1px solid #c4c8c9; position:relative; }
+
+.searchbar li span.select select{opacity:0; z-index:100; position:relative;filter:alpha(opacity=0); padding-right:25px; }
+.searchbar li span.select .txt{ position:absolute; top:0px; left:4px;}
+.searchbar li span.ico_dik { float:left; width: 26px; height: 26px; background: url(../images/ico_03.png) no-repeat -102px -120px #c4c8c9; cursor: pointer; }
+.searchbar li span.ico_dow{ width: 26px; height: 26px; background: url(../images/ico_03.png) no-repeat -158px -0px #c4c8c9; cursor: pointer; margin-left:-25px; float:left; position:relative; z-index:0}
+.piece { border: 1px solid #fff; background-color: #fff; margin: 10px; width:auto;  }
+.piece table { margin-bottom: 0px; }
+.piece .piece_con { border: 1px solid #cccccc; background-color: #f9f9f9; width:auto;  }
+.piece .piece_con h2.title { height: 30px; border-bottom: 1px solid #ccc; margin-bottom: 0px; line-height: 30px; font-size: 16px; background-color: #efefef; width: 100%; display: block; clear: both; width: auto; float: none; }
+.piece .piece_con h2.title i { float: left; width: 34px; height: 30px; background: url(../images/ico_03.png) no-repeat -20px -117px; margin-right: 10px; border-right: 1px solid #ccc; }
+.content { height: auto;  }
+.table-bordered { border-collapse: separate; }
+table { border-collapse: collapse; border-spacing: 0; }
+.table th { border-bottom: 0 none; color: #666666; font-size: 14px; height: auto; padding: 5px 10px 2px; text-align: center; }
+.table thead th { vertical-align: middle; }
+.table th { background: none repeat scroll 0 0 #EFEFEF; height: 36px; }
+.table-bordered th, .table-bordered td { border-left: 1px solid #DDDDDD; }
+.table th { font-weight: bold; }
+.nopadding .table-bordered { border: 0 none; }
+.nopadding .table { margin-bottom: 0; }
+.table { margin-bottom: 20px; width: 100%; }
+table { background-color: transparent; border-collapse: collapse; border-spacing: 0; max-width: 100%; }
+.table-bordered th, .table-bordered td { border-left: 1px solid #DDDDDD; }
+.table tr:hover { background-color: #f2f2f2; }
+.table td { border-top: 1px solid #DDDDDD; line-height: 20px; padding: 8px; text-align: left; vertical-align: top; }
+.table_01{ background-color:#FFF; border-right:1px solid #ddd;border-top:2px solid #ff9000; }
+.table_01 tr td{ border-left:1px solid #ddd;border-bottom:1px solid #ddd; padding:3px 3px; vertical-align:middle; line-height:30px;}
+.table_01 tr th{ border-left:1px solid #ddd;border-bottom:1px solid #ddd; padding:8px 3px; text-align:center; vertical-align:middle;}
+.table_01 tr{ background-color:expression(this.cellIndex%2==0?"f2f2f2":"#fff"); }
+.table_01 tr:nth-child(odd) {background-color:#fff;}
+.table_01 tr:nth-child(even) {background-color:#f2f2f2;}
+
+
+ 
+.searchbar,.searchbar_01 { display: block; }
+.searchbar li,.searchbar_01 li { float: left; padding: 10px; line-height: 26px; font-size: 14px; }
+.searchbar i,.piece .piece_con h2.title .searchbar_01 i { float: left; height: 26px; width: 26px; background: url(../images/ico_03.png) no-repeat -63px -121px; margin-right: 10px; border:0 none;}
+.searchbar li span,.searchbar_01 li span { float: left; }
+.searchbar li input,.searchbar li select,.searchbar_01 li input,.searchbar_01 li select { float: left; height: 22px; border: 1px solid #c4c8c9; padding: 1px 5px; margin:0px; }
+.searchbar li input:focus,.searchbar_01 li input:focus { border-color: #F59942; box-shadow: 0 0 0 2px rgba(245, 153, 66, 0.3); transition-duration: 0.1s; color: #333; }
+.searchbar li span.text,.searchbar_01 li span.text { background-color: #c4c8c9; color: #212629; padding: 0 10px; }
+.searchbar li input.search_btn,.searchbar_01 li input.search_btn { height: 22px; border: none 0; background-color: #2e3740; color: #FFF; font-size: 14px; line-height: 14px; cursor:pointer; }
+.searchbar li span.select,.searchbar_01 li span.select{ background-color:#FFF;  float: left; overflow:hidden;  height: 24px; border: 1px solid #c4c8c9; position:relative; }
+.searchbar li span.select select,.searchbar_01 li span.select select{opacity:0; z-index:100; position:relative;filter:alpha(opacity=0); padding-right:25px; }
+.searchbar li span.select .txt,.searchbar_01 li span.select .txt{ position:absolute; top:0px; left:4px;}
+.searchbar li span.ico_dik,.searchbar_01 li span.ico_dik { float:left; width: 26px; height: 26px; background: url(../images/ico_03.png) no-repeat -102px -120px #c4c8c9; cursor: pointer; }
+.searchbar li span.ico_dow,.searchbar_01 li span.ico_dow{ width: 26px; height: 26px; background: url(../images/ico_03.png) no-repeat -158px -0px #c4c8c9; cursor: pointer; margin-left:-25px; float:left; position:relative; z-index:0}
+.searchbar_01 li{ padding:2px 10px;}
+.searchbar_01 li.right{ float:right; padding:2px 1px 2px 0px;}
+.searchbar_01 li input.chart_btn{cursor:pointer; width:26px; height:26px; background:url(../images/book_03.png) no-repeat 2px 2px #e76049; border:0 none;}
+.searchbar_01 li input.list_btn{cursor:pointer; width:26px; height:26px; background:url(../images/book_03.png) no-repeat 1px -52px #e76049; border:0 none;}
+.searchbar_01 li input.bagc_8584{ background-color:#858484;}
+.piece .piece_con h2.title .searchbar_01 li span.text{ height:26px;}
+
+#divList{
+    width:100%; min-height:440px;
+}
+
+#chartdiv{
+    width:100%; 
+	min-height:440px;
+    background:#fff; /* 一些不支持背景渐变的浏览器 */ 
+	/*filter:alpha(opacity=100 finishopacity=50 style=1 startx=0,starty=0,finishx=0,finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#F4F0A8,endcolorstr=#F2F3F3,gradientType=0); 
+	-ms-filter:alpha(opacity=100 finishopacity=50 style=1 startx=0,starty=0,finishx=0,finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#F4F0A8,endcolorstr=#F2F3F3,gradientType=0);/*IE8*/ 
+	
+	/*background:-moz-linear-gradient(top, #F4F0A8, rgba(242, 243, 243, 0.5)); 
+	background:-webkit-gradient(linear, 0 0, 0 bottom, from(#F4F0A8), to(rgba(242, 243, 243, 0.5)));*/*/ 
+}
+
+.chartdiv{
+    width:100%; 
+	min-height:440px;
+	background:#fff; /* 一些不支持背景渐变的浏览器 */ 
+	
+}
+
+.ajax_loader 
+{
+	background: url("images/ajax_loader.gif") no-repeat center center transparent;
+	width:100%;
+	height:100%;
+}
+
+
+.pages{ clear:both; padding:5px; text-align:right; padding-right:0px;}
+.pages a{ display:inline-block; padding: 0 5px; margin-left:3px; background-color:#f2f2f2; text-decoration:none; line-height:18px; font-size:12px; color:#666;}
+.pages a:hover,.pages a.selected{ background-color:#F60; color:#FFF;}
+.pages a.selected{cursor:default;}
+
+
+
+.searchbar_01 li input.addnew {
+    cursor: pointer;
+    width: 26px;
+    height: 26px;
+    background: url(../images/ico.png) no-repeat -4px -63px #858484;
+    border: 0 none;
+}
+
+.searchbar_01 li input.tj {
+    cursor: pointer;
+    width: 26px;
+    height: 26px;
+    background: url(../images/ico.png) no-repeat -2px -30px #e76049;
+    border: 0 none;
+}
+
+.searchbar_01 li input.export_btn{
+    cursor: pointer;
+    width: 26px;
+    height: 26px;
+    background: url(../images/ico.png) no-repeat -4px -93px #858484;
+    border: 0 none;
+}

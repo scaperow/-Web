@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1ADBD468-DF03-434B-B22B-36C7F7EA6302}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JZ.BLL</RootNamespace>
+    <AssemblyName>JZ.BLL</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>RefrenceCenter\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>RefrenceCenter\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Yqun.Common.Encoder, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>RefrenceCenter\Yqun.Common.Encoder.dll</HintPath>
+    </Reference>
+    <Reference Include="Yqun.Data.DataBase, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>RefrenceCenter\Yqun.Data.DataBase.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DbHelperSQL.cs" />
+    <Compile Include="LineDbHelperSQL.cs" />
+    <Compile Include="模型\biz_machinelist.cs" />
+    <Compile Include="模型\DayDetail.cs" />
+    <Compile Include="模型\ItemModel.cs" />
+    <Compile Include="模型\JQGridColumnData.cs" />
+    <Compile Include="模型\JZTestDataCell.cs" />
+    <Compile Include="模型\MapData.cs" />
+    <Compile Include="模型\ProjectDBModel.cs" />
+    <Compile Include="模型\ChartModel.cs" />
+    <Compile Include="模型\SysBaseLine.cs" />
+    <Compile Include="模型\sys_line.cs" />
+    <Compile Include="模型\TestData.cs" />
+    <Compile Include="模型\TreeItem.cs" />
+    <Compile Include="试验室\BLL_Betong.cs" />
+    <Compile Include="试验室\BLL_Document.cs" />
+    <Compile Include="试验室\BLL_FailReport.cs" />
+    <Compile Include="试验室\BLL_LoginLog.cs" />
+    <Compile Include="试验室\BLL_Machine.cs" />
+    <Compile Include="试验室\BLL_ParallelReport.cs" />
+    <Compile Include="试验室\BLL_TestRoom.cs" />
+    <Compile Include="BOBase.cs" />
+    <Compile Include="登录\BLL_Login.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="试验室\BLL_UserInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="RefrenceCenter\log4net.dll" />
+    <Content Include="RefrenceCenter\Newtonsoft.Json.dll" />
+    <Content Include="RefrenceCenter\Yqun.Common.Encoder.dll" />
+    <Content Include="RefrenceCenter\Yqun.Data.DataBase.dll" />
+    <Content Include="数据库脚本\函数\Fweb_ReturnPXCount.sql" />
+    <Content Include="数据库脚本\函数\Fweb_ReturnPXQualityCount.sql" />
+    <Content Include="数据库脚本\函数\Fweb_SplitExpression.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_evaluatedata_chart.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_evaluatedata_chart_pop.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_failreport.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_loginlogpop.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_machineSummary_chart.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_machineSummary_chart_pop.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_pager.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_pxjzReport.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_pxreport_Chart_pop.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_PX_Count_Summary.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_PX_ZJ_Summary.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_qxzlhzb.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_qxzlhzb_charts.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_qxzlhzb_charts_pop.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_qxzlhzb_charts_pop_grid.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_qxzlhzb_jqgrid_pop.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_tqdreport.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_userSummary.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_userSummary_chart.sql" />
+    <Content Include="数据库脚本\存储过程\spweb_userSummary_chart_pop.sql" />
+    <Content Include="数据库脚本\表\biz_px_relation_web.sql" />
+    <Content Include="数据库脚本\表\biz_ZJ_JZ_Summary.sql" />
+    <Content Include="数据库脚本\视图\v_bs_codeName.sql" />
+    <Content Include="数据库脚本\视图\v_bs_evaluateData.sql" />
+    <Content Include="数据库脚本\视图\v_bs_machineSummary.sql" />
+    <Content Include="数据库脚本\视图\v_bs_reminder_stadiumData.sql" />
+    <Content Include="数据库脚本\视图\v_bs_userSummary.sql" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,101 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="loginlogpop.aspx.cs" Inherits="logInfo_loginlogpop" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/jquery-1.9.0.min.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/amcharts.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/main.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/ajax_loader.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/ajaxLoaderPopPage.js") %>"></script>
+    <script type="text/javascript">
+
+        $(function () {
+
+            var id = getQueryString('id');
+
+            id = encodeURI(id);
+            id = encodeURI(id);
+
+
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                async: false,
+                url: "<%= ResolveUrl("~/ajax/ajaxChart.aspx?sType=loginlogpop&sUser=") %>" + id + "&r=" + Math.random(),
+                success: function (msg) {
+                    var popChart = new AmCharts.AmPieChart();
+                    popChart.dataProvider = eval(msg);
+                  
+                    popChart.categoryField = "DescriptionDate";
+
+
+                    var categoryAxis = popChart.categoryAxis;
+                    categoryAxis.parseDates = true;
+                    categoryAxis.minPeriod = "DD";
+                    categoryAxis.axisColor = "#DADADA";
+                    categoryAxis.title = "时间";
+                    categoryAxis.labelRotation = 45;
+                    categoryAxis.dateFormats = [{
+                        period: 'DD',
+                        format: 'M月D日'
+                    }, {
+                        period: 'WW',
+                        format: 'M月D日'
+                    }, {
+                        period: 'MM',
+                        format: 'M月'
+                    }, {
+                        period: 'YYYY',
+                        format: 'YYYY年'
+                    }];
+
+                 
+
+
+                 
+
+
+                    var graph = new AmCharts.AmGraph();
+                    graph.type = "line";
+                    graph.bullet = "round";
+                    graph.bulletColor = "#00BBCC";
+                    graph.balloonText = "[[Para4]]";                 
+                    graph.title = "组值";
+                    graph.valueField = "DescriptionDate";
+                    graph.lineThickness = 0;
+                    graph.lineColor = "#00BBCC";
+                    popChart.addGraph(graph);
+
+
+                    var graph1 = new AmCharts.AmGraph();
+                    graph1.type = "line";
+                    graph1.bullet = "round";
+                    graph1.bulletColor = "#00BBCC";
+                    graph1.title = "组值";
+                    graph1.valueField = "DescriptionDate1";
+                    graph1.lineThickness = 0;
+                    graph1.lineColor = "#00BBCC";
+                    popChart.addGraph(graph1);
+
+
+
+                    var legend = new AmCharts.AmLegend();
+                    popChart.addLegend(legend);
+                    // WRITE
+                    popChart.write("chartdiv2");
+                }
+
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="chartdiv2" style="width: 100%; height: 530px;"></div>
+
+</body>
+</html>
+
